@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Danni Dines</title>
+    <link rel="stylesheet" href="..\css\logs.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="../index.html"><span>Home</span></a></li>
+            <li><a href="logs.html"><span>Logs</span></a></li>
+            <li><span>List</span></li>
+            <li><span>Beyonce</span></li>
+            <button id="musicButton">&#9835;</button>
+        </ul>
+    </nav>
+
+    <div id="overlayContainer">
+        <div id="overlay">
+            <button class="closeButton" onclick="off()">&#215;</button>
+            <form id="form" name="logForm" method="post">
+                <label for="restaurant">Restaurant</label><br>
+                <input type="text" id="restaurant" required><br>
+                <label for="review">Review</label><br>
+                <textarea type="text" id="review" required></textarea><br>
+                <label for="rating">Rating</label><br>
+                <div class="star-wrap">
+                    <input class="star" checked type="radio" value="-1" id="skip-star" name="star-radio" autocomplete="off" />
+                    <label class="star-label hidden"></label>
+                    <input class="star" type="radio" id="st-1" value="1" name="star-radio" autocomplete="off" />
+                    <label class="star-label" for="st-1">
+                        <div class="star-shape"></div>
+                    </label>
+                    <input class="star" type="radio" id="st-2" value="2" name="star-radio" autocomplete="off" />
+                    <label class="star-label" for="st-2">
+                        <div class="star-shape"></div>
+                    </label>
+                    <input class="star" type="radio" id="st-3" value="3" name="star-radio" autocomplete="off" />
+                    <label class="star-label" for="st-3">
+                        <div class="star-shape"></div>
+                    </label>
+                    <input class="star" type="radio" id="st-4" value="4" name="star-radio" autocomplete="off" />
+                    <label class="star-label" for="st-4">
+                        <div class="star-shape"></div>
+                    </label>
+                    <input class="star" type="radio" id="st-5" value="5" name="star-radio" autocomplete="off" />
+                    <label class="star-label" for="st-5">
+                        <div class="star-shape"></div>
+                    </label>
+                </div>
+                <label for="picture">Upload pictures</label><br>
+                <input type="file" id="picture" accept="image/png" multiple><br>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+
+    <button onclick="on()">Log Dine</button>
+
+    <div id="logsContainer"></div>
+
+    <script src="../js/script.js"></script>
+    <!-- <script> localStorage.clear(); </script> -->
+</body>
+</html>

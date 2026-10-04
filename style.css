@@ -1,0 +1,141 @@
+@font-face {
+  font-family: "Cooper Black Condensed"; 
+  src: url("fonts/Cooper Black Condensed Regular.woff"); 
+}
+
+@font-face {
+  font-family: "Harimau Dua"; 
+  src: url("fonts/DK Harimau Dua.otf"); 
+}
+
+@font-face {
+  font-family: "Motoya Birch"; 
+  src: url("fonts/MotoyaExBirch W6.woff"); 
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.hero {
+    margin: 0;
+    background: #fabfd4;
+    height: 90vh;
+    background-image: linear-gradient(90deg, #fcb6d3 0%, #fcb6d3 5%, #fabfd4 5%, #fabfd4 15%, #fcb6d3 15%, #fcb6d3 20%, #fabfd4 20%, #fabfd4 30%, #fcb6d3 30%, #fcb6d3 35%, #fabfd4 35%, #fabfd4 45%, #fcb6d3 45%, #fcb6d3 50%, 
+    #fabfd4 50%, #fabfd4 60%, #fcb6d3 60%, #fcb6d3 65%, #fabfd4 65%, #fabfd4 75%, #fcb6d3 75%, #fcb6d3 80%, #fabfd4 80%, #fabfd4 90%, #fcb6d3 90%, #fcb6d3 95%, #fabfd4 95%, #fabfd4 100%);
+}
+
+#musicButton {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    border: 3.5px solid #e4587d;
+    background: #F9BFD1;
+    background: radial-gradient(circle, rgba(249, 191, 209, 1) 21%, rgba(255, 169, 196, 1) 77%, rgba(255, 167, 195, 1) 94%);
+    border-radius: 100%;
+    color: #56a99d;
+    font-size: 2.5rem;
+    -webkit-text-stroke: 2px #44817b;
+    right: 0;
+    position: absolute;
+}
+
+nav {
+    background: #e61d4e;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    height: 10vh;
+}
+
+ul {
+    display: flex;
+    column-gap: 20px;
+    margin: 0;
+    margin-left: 40px;
+    margin-right: 40px;
+    padding: 0;
+    list-style-type: none;
+    height: inherit;
+}
+
+li {
+    padding-right: 30px;
+    padding-left: 30px;
+    line-height: 10vh;
+    font-family: "Motoya Birch";
+    font-size: 2.3rem;
+}
+
+li span {
+    background: linear-gradient(#fff4fe, #ffadd3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+li:last-child {
+    margin-left: auto
+}
+
+li:hover {
+    border: 2.5px #c42f70 solid;
+    border-radius: 10px;
+    background-image: linear-gradient(#eb84af, #e45390);
+}
+
+a {
+    text-decoration: none;
+}
+
+.feature {
+    margin: 0;
+    background: #e5f4eb;
+    display: flex;
+    padding: 10px;
+}
+
+.log {
+    background: #ffffff;
+    padding: 10px;
+    margin: 10px;
+}
+
+img {
+    width: 30%;
+}
+
+h1 {
+    margin: 0;
+    font-family: "Cooper Black Condensed";
+    font-size: 4rem;
+    color: #e61d4e;
+    text-align: center;
+    text-shadow:
+        -4px -4px 0 white,
+        4px -4px 0 white,
+        -4px  4px 0 white,
+        4px  4px 0 white,
+        -4px  0px 0 white,
+        4px  0px 0 white,
+        0px -4px 0 white,
+        0px  4px 0 white;
+    letter-spacing: 4px;
+    font-weight: 20;
+}
+
+p {
+    margin: 0;
+    text-align: center;
+    font-family: "Harimau Dua";
+    font-size: 1.2rem;
+    color: #e61d4e;
+}
+
+h3 {
+    margin: 0;
+}
+
