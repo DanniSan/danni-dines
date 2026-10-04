@@ -146,12 +146,12 @@ def review(review_id):
                 FROM images
                 WHERE review_id=%s
                 ORDER BY display_order ASC''', (review_id,))
-    images = cur.fetchall()
+    images = list(cur.fetchall())
 
     cur.close()
     conn.close()
-
-    return render_template('review.html', data=data.append(images))
+    
+    return render_template('review.html', data=data + images)
 
 if __name__ == '__main__':
     app.run(debug=True)
