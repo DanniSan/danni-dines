@@ -5,29 +5,18 @@
 </head>
 
 <body>
-    <h1>{{ data[0] }}</h1>
-    <h2>{{ data[1] }}</h2>
-    <p>Rating:
-        {% if data[2]==1 %}
-            &#9733;&#9734;&#9734;&#9734;&#9734;
-        {% elif data[2]==2 %}
-            &#9733;&#9733;&#9734;&#9734;&#9734;
-        {% elif data[2]==3 %}
-            &#9733;&#9733;&#9733;&#9734;&#9734;
-        {% elif data[2]==4 %}
-            &#9733;&#9733;&#9733;&#9733;&#9734;
-        {% elif data[2]==5 %}
-            &#9733;&#9733;&#9733;&#9733;&#9733;
-        {% else %}
-            &#9734;&#9734;&#9734;&#9734;&#9734;
-        {% endif %}
-    </p>
-    <p>Visited on: {{ data[3] }}</p>
-    <p>Logged on: {{ data[4] }}</p>
-    <div>
-    {% for image in data[5:] %}
-        <img src="{{ image[0] }}">
-    {% endfor %}
-    </div>
+    <h1 id="restaurant"></h1>
+    <p id="review"></p>
+    <p id="rating"></p>
+    <p id="visited_date"></p>
+    <p id="upload_date"></p>
+
+    <button onclick="on()" id="logDine">Edit Log</button>
+
+    <script> 
+        const reviewId = {{ review_id }}; 
+    </script>
+    
+    <script src="../static/js/script.js"></script>
 </body>
 </html>

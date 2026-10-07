@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 import psycopg2
 import cloudinary
 import cloudinary.uploader
@@ -128,8 +128,12 @@ def create():
 
     return redirect(url_for('index'))
 
-@app.route('/review/<int:review_id>', methods=['GET'])
-def review(review_id):
+@app.route('/review/<int:review_id>')
+def review_page(review_id):
+    return render_template('review.html', review_id=review_id)
+
+@app.route('/api/review/<int:review_id>', methods=['GET'])
+def get_review(review_id):
     conn = psycopg2.connect(database="dannidines_db", 
                                 user=USER, 
                                 password=PASSWORD, 
@@ -140,18 +144,32 @@ def review(review_id):
     cur.execute('''SELECT restaurant, review, rating, visited_date, upload_date
                 FROM logs 
                 WHERE id=%s''', (review_id,))
-    data = list(cur.fetchone())
+    data = cur.fetchone()
+
+    if data is None:
+        cur.close()
+        conn.close()
+        return {"error": "Review not found"}, 404
+
+    data = {
+        "restaurant": data[0],
+        "review": data[1],
+        "rating": data[2],
+        "visited_date": data[3].isoformat() if data[3] else None,
+        "upload_date": data[4].isoformat() if data[4] else None
+    }
 
     cur.execute('''SELECT image_url
                 FROM images
                 WHERE review_id=%s
                 ORDER BY display_order ASC''', (review_id,))
-    images = list(cur.fetchall())
+    images = cur.fetchall()
+    data['images'] = [image[0] for image in images]
 
     cur.close()
     conn.close()
-    
-    return render_template('review.html', data=data + images)
+
+    return data
 
 if __name__ == '__main__':
     app.run(debug=True)

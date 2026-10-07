@@ -65,7 +65,7 @@
     
     <div id="logsContainer">
         {% for review in data %}
-        <div class="log" onclick="window.location.href='{{ url_for('review', review_id=review['id']) }}';"">
+        <div class="log" onclick="window.location.href='{{ url_for('review_page', review_id=review['id']) }}';">
           <div class="imageBox">
             <img src="{{  review['image_url'][0] }}">  
           </div>
