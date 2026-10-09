@@ -198,5 +198,30 @@ def update_review(review_id):
         "id": review_id
     }, 200
 
+@app.route('/api/reviews/<int:review_id>', methods=['DELETE'])
+def delete_review(review_id):
+    conn = psycopg2.connect(database="dannidines_db", 
+                                user=USER, 
+                                password=PASSWORD, 
+                                host="localhost", port="5432")
+        
+    cur = conn.cursor()
+    
+    cur.execute('''DELETE FROM logs 
+                WHERE id=%s''', (review_id,))
+
+    cur.execute('''DELETE FROM images 
+                WHERE review_id=%s''', (review_id,))
+
+    conn.commit()   
+
+    cur.close()
+    conn.close()
+
+    return {
+        "message": "Review deleted successfully",
+        "id": review_id
+    }, 200
+
 if __name__ == '__main__':
     app.run(debug=True)

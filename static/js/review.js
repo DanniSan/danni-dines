@@ -12,28 +12,49 @@ const form = document.getElementById("form");
 form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    const formData = {
-        "restaurant": document.getElementById("restaurant").value,
-        "review": document.getElementById("review").value
-    };
+    const buttonClicked = event.submitter;
 
-    try {
-        const response = await fetch(`/api/reviews/${reviewId}`, {
-            method: "PUT",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(formData)
-        });
+    if (buttonClicked.value === "Update") {
+        const formData = {
+            "restaurant": document.getElementById("restaurant").value,
+            "review": document.getElementById("review").value
+        };
 
-        const data = await response.json();
+        try {
+            const response = await fetch(`/api/reviews/${reviewId}`, {
+                method: "PUT",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(formData)
+            });
 
-        if (!response.ok) {
-            throw new Error('Could not update review');
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error('Could not update review');
+            }
+            console.log("Review updated successfully!");
+            window.location.reload();
+
+        } catch (error) {
+            console.error('Error:', error); 
         }
-        console.log("Review updated successfully!");
-        window.location.reload();
+    } else if (buttonClicked.value === "Delete") {
+        try {
+            const response = await fetch(`/api/reviews/${reviewId}`, {
+                method: "DELETE"
+            });
 
-    } catch (error) {
-        console.error('Error:', error); 
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error('Could not delete review');
+            }
+            console.log("Review deleted successfully!"); 
+            window.location.href = "/";
+
+        } catch (error) {
+            console.error('Error:', error); 
+        }
     }
 });
 
