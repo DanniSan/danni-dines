@@ -1,22 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-    
+    <title>Danni Dines</title>
+    <link rel="stylesheet" href="..\static\styles\logs.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
-    <h1 id="restaurant"></h1>
-    <p id="review"></p>
-    <p id="rating"></p>
-    <p id="visited_date"></p>
-    <p id="upload_date"></p>
+    <h1 id="restaurant_log"></h1>
+    <p id="review_log"></p>
+    <p id="rating_log"></p>
+    <p id="visited_date_log"></p>
+    <p id="upload_date_log"></p>
 
     <button onclick="on()" id="logDine">Edit Log</button>
+
+    <div id="overlayContainer">
+        <div id="overlay">
+            <button class="closeButton" onclick="off()">&#215;</button>
+            <form enctype="multipart/form-data" id="form">
+                <label for="restaurant">Restaurant</label><br>
+                <input type="text" name="restaurant" id="restaurant" required><br>
+                <label for="review">Review</label><br>
+                <textarea type="text" name="review" placeholder="Write your review here..." id="review" required></textarea><br>
+                <div id="submitButton">
+                    <input type="submit" value="Update">
+                </div>
+            </form>
+        </div>
+    </div>
 
     <script> 
         const reviewId = {{ review_id }}; 
     </script>
     
-    <script src="../static/js/script.js"></script>
+    <script src="../static/js/review.js"></script>
 </body>
 </html>

@@ -75,18 +75,13 @@ def index():
     
     return render_template('logs.html', data=data)
 
-@app.route('/create', methods=['POST'])
+@app.route('/api/reviews', methods=['POST'])
 def create():
-    conn = psycopg2.connect(database="dannidines_db", 
-                        user=USER, 
-                        password=PASSWORD, 
-                        host="localhost", port="5432")
-
-    cur = conn.cursor()
-
-    restaurant = request.form['restaurant']
-    review = request.form['review']
-    rating = request.form['star-radio']
+    restaurant = request.form.get('restaurant')
+    review = request.form.get('review')
+    rating = request.form.get('star-radio')
+    visited_date = datetime.strptime(request.form.get('visited_date'), '%Y-%m-%d').date() if request.form.get('visited_date') else None
+    upload_date = datetime.now()
 
     images = request.files.getlist('images')
     image_urls = []
@@ -101,9 +96,13 @@ def create():
             upload_result = cloudinary.uploader.upload(image)
             image_urls.append(upload_result['secure_url'])
         pass
+    
+    conn = psycopg2.connect(database="dannidines_db", 
+                        user=USER, 
+                        password=PASSWORD, 
+                        host="localhost", port="5432")
 
-    visited_date = datetime.strptime(request.form.get('visited_date'), '%Y-%m-%d').date() if request.form.get('visited_date') else None
-    upload_date = datetime.now()
+    cur = conn.cursor()
 
     cur.execute(
         '''INSERT INTO logs \
@@ -126,13 +125,16 @@ def create():
     cur.close()
     conn.close()
 
-    return redirect(url_for('index'))
+    return {
+        "message": "Review created successfully",
+        "id": review_id
+    }, 201
 
-@app.route('/review/<int:review_id>')
+@app.route('/reviews/<int:review_id>')
 def review_page(review_id):
     return render_template('review.html', review_id=review_id)
 
-@app.route('/api/review/<int:review_id>', methods=['GET'])
+@app.route('/api/reviews/<int:review_id>', methods=['GET'])
 def get_review(review_id):
     conn = psycopg2.connect(database="dannidines_db", 
                                 user=USER, 
@@ -170,6 +172,31 @@ def get_review(review_id):
     conn.close()
 
     return data
+
+@app.route('/api/reviews/<int:review_id>', methods=['PUT'])
+def update_review(review_id):
+    form_data = request.get_json()
+
+    conn = psycopg2.connect(database="dannidines_db", 
+                                user=USER, 
+                                password=PASSWORD, 
+                                host="localhost", port="5432")
+        
+    cur = conn.cursor()
+    
+    cur.execute('''UPDATE logs
+                SET restaurant=%s, review=%s 
+                WHERE id=%s''', (form_data.get('restaurant'), form_data.get('review'), review_id))
+
+    conn.commit()   
+
+    cur.close()
+    conn.close()
+
+    return {
+        "message": "Review updated successfully",
+        "id": review_id
+    }, 200
 
 if __name__ == '__main__':
     app.run(debug=True)

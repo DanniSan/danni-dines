@@ -8,22 +8,27 @@ function off() {
     document.getElementById("overlay").style.display = "none";
 }
 
-async function getReview() {
+const form = document.getElementById("form");
+form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(form);
+
     try {
-        const response = await fetch(`/api/review/${reviewId}`);
-        if (response.ok) {
-            const data = await response.json(); 
-            console.log(data);
-            document.getElementById("restaurant").textContent = data.restaurant;
-            document.getElementById("review").textContent = data.review;
-            document.getElementById("rating").textContent = data.rating;
-            document.getElementById("visited_date").textContent = data.visited_date;
-            document.getElementById("upload_date").textContent = data.upload_date;
-        } else {
-            throw new Error('Failed to fetch data');
+        const response = await fetch("/api/reviews", {
+            method: "POST",
+            body: formData
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error('Could not create review');
         }
+        console.log("Review created successfully!");
+        window.location.href = '/';
+
     } catch (error) {
         console.error('Error:', error); 
     }
-}
-getReview();
+});
